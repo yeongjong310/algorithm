@@ -36,7 +36,6 @@ function solution(s, e) {
 console.log(solution(5, 14)); // 3
 
 
-
 // function solution(s, e) {
 //   var answer = Number.MAX_SAFE_INTEGER;
 //   let moves = [1, -1, 5];
