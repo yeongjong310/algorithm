@@ -7,7 +7,7 @@ function solution(m, arr){
       sum += arr[p2++];
     } else if (sum > m || p2 >= arr.length) {
       sum -= arr[p1++];
-    } else {
+    } else 
       sum += arr[p2++];
     }
   }

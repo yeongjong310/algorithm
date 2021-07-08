@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(cans){  
+                let answer=Number.MAX_SAFE_INTEGER;
+                let len=cans.length;
+                ch=Array.from({length:len}, ()=>0);
+                function DFS(L, s){
+                    if(L===len/2){
+                        let A=[], B=[];
+                        for(let i=0; i<len; i++){
+                            if(ch[i]===1) A.push(i);
+                            else B.push(i);
+                        }
+                        let Asum=0, Bsum=0;
+                        for(let i=0; i<A.length; i++){
+                            Asum+=cans[A[i]][0];
+                            Bsum+=cans[B[i]][1];
+                        }
+                        answer=Math.min(answer, Math.abs(Asum-Bsum));
+                    }
+                    else{
+                        for(let i=s; i<len; i++){
+                            ch[i]=1;
+                            DFS(L+1, i+1);
+                            ch[i]=0;
+                        }
+                    }
+                }
+                DFS(0, 0);
+                return answer;
+            }
+            console.log(solution([[87, 84], [66, 78], [94, 94], [93, 87], [72, 92], [78, 63]]));
+        </script>
+    </body>
+</html>

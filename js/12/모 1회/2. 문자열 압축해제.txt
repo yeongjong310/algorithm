@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(s){  
+                let answer="";
+                let stack=[];
+                for(let x of s){
+                    if(x!==')') stack.push(x);
+                    else{
+                        let tmp="";
+                        while(stack.length){
+                            c=stack.pop();
+                            if(c==='('){
+                                num="";
+                                while(stack.length!==0 && !isNaN(stack[stack.length-1])){
+                                    num=stack.pop()+num;
+                                }
+                                stack.push(tmp.repeat(Number(num)));
+                                break;
+                            }
+                            else{
+                                tmp=c+tmp;
+                            }
+                        }
+                    }
+                }
+                answer=stack.join('');
+                return answer;
+            }
+            let str="abc3(cd)xyz";
+            console.log(solution(str));
+        </script>
+    </body>
+</html>

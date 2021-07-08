@@ -1,0 +1,25 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(height){  
+                let n=height.length;
+                height.unshift(0);
+                let stack=[];
+                let res=Array.from({length:n+1}, ()=>0);
+                for(let i=n; i>=1; i--){
+                  while(stack.length && height[i]>height[stack[stack.length-1]]){
+                    res[stack.pop()]=i;
+                  }
+                  stack.push(i)
+                }
+                res.shift();
+                return res;
+            }
+            console.log(solution([50, 57, 52, 53, 51]));
+        </script>
+    </body>
+</html>

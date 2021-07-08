@@ -1,0 +1,25 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(s){  
+                let answer="";
+                let sH = new Map();
+                for(let x of s){
+                    if(sH.has(x)) sH.set(x, sH.get(x)+1);
+                    else sH.set(x, 1);
+                }
+                let tmp=[...sH].sort((a, b)=>b[1]-a[1]);
+                for(let [key, val] of tmp){
+                    answer+=key.repeat(val);
+                }
+                return answer;
+            }
+            let str="BACBACCACCBDEDE";
+            console.log(solution(str));
+        </script>
+    </body>
+</html>
