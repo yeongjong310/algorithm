@@ -17,7 +17,6 @@ function solution(nums, h) {
 
       if (sumHour === h) {
 
-        console.log('123');
         answer = Math.min(answer, mid);
 
       }

@@ -11,6 +11,7 @@ const solution = (timeLimit, scores, times) => {
 
     recursive(index + 1, scoreAcc + scores[index], timeAcc + times[index]);
     recursive(index + 1, scoreAcc, timeAcc);
+
   }
 
   recursive(0, 0, 0);

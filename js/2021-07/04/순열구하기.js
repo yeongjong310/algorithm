@@ -1,6 +1,6 @@
 const solution = (m, arr) => {
   const answer = [];
-  const useState = Array.from({length:m}, () => false);
+  const usedState = Array.from({ length: m }, () => false);
 
   const recursive = () => {
     if (answer.length === m) {
@@ -9,16 +9,16 @@ const solution = (m, arr) => {
     }
 
     for (let i = 0; i < arr.length; i++) {
-      if (useState[i]) continue;
+      if (usedState[i]) continue;
 
       answer.push(arr[i]);
-      useState[i] = true;
+      usedState[i] = true;
       recursive();
       answer.pop();
-      useState[i] = false;
+      usedState[i] = false;
     }
+  };
 
-  }
   recursive();
-}
+};
 solution(2, [3, 6, 9]);

@@ -2,10 +2,9 @@ const solution = (n, targetNum) => {
   const useState = Array(n + 1).fill(false);
   const arr = [];
   let flag = false;
-  
+
   const permutation = () => {
     if (arr.length === n) {
-      
       return;
     }
 
@@ -17,11 +16,10 @@ const solution = (n, targetNum) => {
       permutation();
       arr.pop();
       useState[num] = false;
-
     }
   };
 
   permutation();
-}
+};
 
-solution(4, 16);
+console.log(solution(4, 16));

@@ -9,19 +9,19 @@ const combination = (n, r) => {
     }
 
     for (let i = num; i <= n; i++) {
-      if (useState[i]) continue;
+      // if (useState[i]) continue;
 
-      useState[i] = true;
+      // useState[i] = true;
       arr.push(i);
 
-      recursive(i);
+      recursive(i + 1);
 
-      useState[i] = false;
+      // useState[i] = false;
       arr.pop();
     }
-  }
+  };
 
   recursive(1);
-}
+};
 
 combination(3, 2);
