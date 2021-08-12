@@ -1,6 +1,4 @@
 function solution(scores) {
-  let answer = '';
-
   const getGrade = average => {
     switch (true) {
       case average >= 90:
@@ -16,41 +14,18 @@ function solution(scores) {
     }
   };
 
-  const studentLength = scores.length;
-  const receivedScoresListByStudent = Array.from({ length: studentLength }, () => []);
+  const receivedScoresListByStudent = scores.map((_, i) => scores.map(score => score[i]));
 
-  for (let i = 0; i < studentLength; i++) {
-    for (let j = 0; j < studentLength; j++) {
-      receivedScoresListByStudent[j].push([i, scores[i][j]]);
-    }
-  }
+  return receivedScoresListByStudent
+    .map((scores, i) => {
+      const myScore = scores.splice(i, 1)[0];
 
-  receivedScoresListByStudent.forEach((scores, myNumber) => {
-    scores.sort((a, b) => b[1] - a[1]);
+      if (myScore > Math.max(...scores) || myScore < Math.min(...scores)) return scores;
 
-    const filterdScores = scores
-      .filter((_, index, thisArr) => {
-        if (index === 0
-          && thisArr[index][0] === myNumber
-          && thisArr[index][1] !== thisArr[index + 1][1]) return false;
-
-        if (index === studentLength - 1
-          && thisArr[studentLength - 1][0] === myNumber
-          && thisArr[studentLength - 1][1] !== thisArr[studentLength - 2][1]) return false;
-
-        return true;
-      })
-      .map(([_, score]) => score);
-
-    const average = filterdScores.reduce((acc, cur, index) => {
-      if (index === filterdScores.length - 1) return (acc + cur) / filterdScores.length;
-      return acc + cur;
-    }, 0);
-
-    answer += getGrade(average);
-  });
-
-  return answer;
+      return [myScore, ...scores];
+    })
+    .map(scores => getGrade(scores.reduce((acc, cur) => acc + cur, 0) / scores.length))
+    .join('');
 }
 
 const scores = [
@@ -61,4 +36,4 @@ const scores = [
   [24, 90, 94, 75, 65],
 ];
 
-// console.log(solution(scores) === 'FBABD');
+console.log(solution(scores)); // 'FBABD'
