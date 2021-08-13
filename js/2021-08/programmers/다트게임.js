@@ -6,16 +6,14 @@ function solution(dartResult) {
     T: 3
   };
 
-  dartResult.split(/(\d+|\w)/).forEach(char => {
-    if (char !== '') {
-      if (!Number.isNaN(+char)) scores.push(+char);
-      if (AREA[char]) scores[scores.length - 1] **= AREA[char];
-      if (char === '*') {
-        scores[scores.length - 1] *= 2;
-        scores[scores.length - 2] && (scores[scores.length - 2] *= 2);
-      }
-      if (char === '#') scores[scores.length - 1] *= -1;
+  dartResult.match(/(\d+|\w|\W)/g).forEach(char => {
+    if (!Number.isNaN(+char)) scores.push(+char);
+    if (AREA[char]) scores[scores.length - 1] **= AREA[char];
+    if (char === '*') {
+      scores[scores.length - 1] *= 2;
+      scores[scores.length - 2] && (scores[scores.length - 2] *= 2);
     }
+    if (char === '#') scores[scores.length - 1] *= -1;
   });
 
   return scores.reduce((acc, cur) => acc + cur, 0);
