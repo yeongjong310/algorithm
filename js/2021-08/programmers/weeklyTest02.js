@@ -15,7 +15,7 @@ function solution(scores) {
   };
 
   const receivedScoresListByStudent = scores.map((_, i) => scores.map(score => score[i]));
-
+  console.log(receivedScoresListByStudent);
   return receivedScoresListByStudent
     .map((scores, i) => {
       const myScore = scores.splice(i, 1)[0];
