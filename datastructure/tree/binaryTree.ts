@@ -64,6 +64,22 @@ class BinaryTree<T> extends Tree<T> {
 
     inOrder(curNode);
   }
+
+  postOrder() {
+    const curNode = this.root;
+
+    const postOrder = (node?: BinaryTreeNode<T>) => {
+      if (!node) {
+        return;
+      }
+
+      postOrder(node.left);
+      postOrder(node.right);
+      console.log(node.val);
+    };
+
+    postOrder(curNode);
+  }
 }
 
 const binaryTree = new BinaryTree<number>(
@@ -73,3 +89,4 @@ const binaryTree = new BinaryTree<number>(
 
 binaryTree.preOrder(); // 1, 2, 4, 8 , 5, 3, 6, 9, 7
 binaryTree.inOrder(); // 8, 4, 9, 2, 5, 1, 6, 3, 7
+binaryTree.postOrder(); // 8, 9, 4, 5, 2, 6, 7, 3, 1
