@@ -5,8 +5,7 @@ interface BinaryTreeNode<T> {
 }
 
 abstract class Tree<T> {
-  root?: BinaryTreeNode<T> | T;
-  constructor(root?: BinaryTreeNode<T> | T, arr?: T[]) {
+  constructor(protected root?: BinaryTreeNode<T>, arr?: T[]) {
     if (root) {
       this.root = root;
     } else if (arr) {
@@ -14,22 +13,46 @@ abstract class Tree<T> {
     }
   }
 
-  createTree(arr: T[]): BinaryTreeNode<T> {
-    if (arr.length === 0) {
+  createTree(arr: T[], index: number = 0): BinaryTreeNode<T> | undefined {
+    if (!arr[index]) {
       return undefined;
     }
-    const mid = Math.floor(arr.length / 2);
+
     const root = {
-      val: arr[mid],
-      left: this.createTree(arr.slice(0, mid)),
-      right: this.createTree(arr.slice(mid + 1)),
+      val: arr[index],
+      left: this.createTree(arr, index * 2 + 1),
+      right: this.createTree(arr, index * 2 + 2),
     };
+
     return root;
   }
 }
 
 class BinaryTree<T> extends Tree<T> {
-  constructor(root?: BinaryTreeNode<T> | T, arr?: T[]) {
+  constructor(root?: BinaryTreeNode<T>, arr?: T[]) {
     super(root, arr);
   }
+
+  preOrder() {
+    const curNode = this.root;
+
+    const preOrder = (node?: BinaryTreeNode<T>) => {
+      if (!node) {
+        return;
+      }
+
+      console.log(node.val);
+      preOrder(node.left);
+      preOrder(node.right);
+    };
+
+    preOrder(curNode);
+  }
 }
+
+const binaryTree = new BinaryTree<number>(
+  undefined,
+  [1, 2, 3, 4, 5, 6, 7, 8, 9]
+);
+
+binaryTree.preOrder();
