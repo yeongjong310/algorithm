@@ -104,6 +104,28 @@ class BinaryTree<T> extends Tree<T> {
 
     return undefined;
   }
+
+  dfs(val: T) {
+    if (!this.root) return undefined;
+
+    const stack: BinaryTreeNode<T>[] = [this.root];
+
+    while (stack.length !== 0) {
+      const curNode = stack.pop();
+      console.log(curNode!.val);
+      if (curNode!.val === val) {
+        return curNode!.val;
+      }
+
+      if (curNode!.right) {
+        stack.push(curNode!.right);
+      }
+
+      if (curNode!.left) {
+        stack.push(curNode!.left);
+      }
+    }
+  }
 }
 
 const binaryTree = new BinaryTree<number>(
@@ -115,5 +137,8 @@ const binaryTree = new BinaryTree<number>(
 // binaryTree.inOrder(); // 8, 4, 9, 2, 5, 1, 6, 3, 7
 // binaryTree.postOrder(); // 8, 9, 4, 5, 2, 6, 7, 3, 1
 
-binaryTree.bfs(8); // 8
-binaryTree.bfs(10); // undefined
+// binaryTree.bfs(8); // 8
+// binaryTree.bfs(10); // undefined
+
+// binaryTree.dfs(8); // 8
+// binaryTree.dfs(10); // undefined
