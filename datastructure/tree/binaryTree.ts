@@ -27,3 +27,9 @@ abstract class Tree<T> {
     return root;
   }
 }
+
+class BinaryTree<T> extends Tree<T> {
+  constructor(root?: BinaryTreeNode<T> | T, arr?: T[]) {
+    super(root, arr);
+  }
+}
