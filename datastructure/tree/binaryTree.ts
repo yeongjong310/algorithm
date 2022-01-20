@@ -9,8 +9,23 @@ abstract class Tree<T> {
     if (root) {
       this.root = root;
     } else if (arr) {
-      this.root = this.createTree(arr);
+      this.root = this.createTree(arr, 0);
     }
+  }
+
+  abstract createTree(arr: T[], index: number): BinaryTreeNode<T> | undefined;
+
+  abstract preOrder(): void;
+  abstract inOrder(): void;
+  abstract postOrder(): void;
+
+  abstract bfs(target: T): T | undefined;
+  abstract dfs(target: T): T | undefined;
+}
+
+class BinaryTree<T> extends Tree<T> {
+  constructor(root?: BinaryTreeNode<T>, arr?: T[]) {
+    super(root, arr);
   }
 
   createTree(arr: T[], index: number = 0): BinaryTreeNode<T> | undefined {
@@ -25,12 +40,6 @@ abstract class Tree<T> {
     };
 
     return root;
-  }
-}
-
-class BinaryTree<T> extends Tree<T> {
-  constructor(root?: BinaryTreeNode<T>, arr?: T[]) {
-    super(root, arr);
   }
 
   preOrder() {
@@ -81,7 +90,7 @@ class BinaryTree<T> extends Tree<T> {
     postOrder(curNode);
   }
 
-  bfs(val: T) {
+  bfs(target: T) {
     if (!this.root) return undefined;
 
     const queue: BinaryTreeNode<T>[] = [this.root];
@@ -89,7 +98,7 @@ class BinaryTree<T> extends Tree<T> {
     while (queue.length !== 0) {
       const curNode = queue.shift();
 
-      if (curNode!.val === val) {
+      if (curNode!.val === target) {
         return curNode!.val;
       }
 
@@ -105,15 +114,15 @@ class BinaryTree<T> extends Tree<T> {
     return undefined;
   }
 
-  dfs(val: T) {
+  dfs(target: T) {
     if (!this.root) return undefined;
 
     const stack: BinaryTreeNode<T>[] = [this.root];
 
     while (stack.length !== 0) {
       const curNode = stack.pop();
-      console.log(curNode!.val);
-      if (curNode!.val === val) {
+
+      if (curNode!.val === target) {
         return curNode!.val;
       }
 
@@ -133,12 +142,12 @@ const binaryTree = new BinaryTree<number>(
   [1, 2, 3, 4, 5, 6, 7, 8, 9]
 );
 
-// binaryTree.preOrder(); // 1, 2, 4, 8 , 5, 3, 6, 9, 7
-// binaryTree.inOrder(); // 8, 4, 9, 2, 5, 1, 6, 3, 7
-// binaryTree.postOrder(); // 8, 9, 4, 5, 2, 6, 7, 3, 1
+binaryTree.preOrder(); // 1, 2, 4, 8 , 5, 3, 6, 9, 7
+binaryTree.inOrder(); // 8, 4, 9, 2, 5, 1, 6, 3, 7
+binaryTree.postOrder(); // 8, 9, 4, 5, 2, 6, 7, 3, 1
 
-// binaryTree.bfs(8); // 8
-// binaryTree.bfs(10); // undefined
+binaryTree.bfs(8); // 8
+binaryTree.bfs(10); // undefined
 
-// binaryTree.dfs(8); // 8
-// binaryTree.dfs(10); // undefined
+binaryTree.dfs(8); // 8
+binaryTree.dfs(10); // undefined
