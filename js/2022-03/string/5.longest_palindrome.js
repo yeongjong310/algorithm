@@ -15,8 +15,9 @@ const longestPalindrome = function (s) {
   let result = s[0];
 
   for (let i = 0; i < s.length; i++) {
-    const evenStr = isPalindrome(s.slice(i, i + 2)) ? expend(s, i, i + 2) : "";
-    const oddStr = isPalindrome(s.slice(i, i + 3)) ? expend(s, i, i + 3) : "";
+    const evenStr = expend(s, i, i + 2);
+
+    const oddStr = expend(s, i, i + 3);
 
     const longerPalindromeStr =
       evenStr.length < oddStr.length ? oddStr : evenStr;
@@ -28,7 +29,7 @@ const longestPalindrome = function (s) {
 
   return result;
 
-  // 전형적인 투포인터 재귀방식에 비해 40배 정도 빠르다
+  // 전형적인 투포인터 재귀방식에 비해 40배 정도 빠르다.
   function expend(str, start, end) {
     while (start >= 0 && end <= s.length && s[start] === s[end - 1]) {
       start--;
@@ -38,7 +39,7 @@ const longestPalindrome = function (s) {
     return str.slice(start + 1, end - 1);
   }
 
-  // 재귀방식으로 풀이 => 함수 호출 방식이 포함되기 때문에 굉장히 느리다
+  // 재귀방식으로 풀이 => 함수 호출 방식이 포함되기 때문에 굉장히 느리다.
   function expend_re(str, start, end) {
     if (start < 0 || end > str.length) {
       return str.slice(start + 1, end - 1);
